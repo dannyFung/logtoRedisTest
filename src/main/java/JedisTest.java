@@ -61,6 +61,27 @@ public class JedisTest {
     }
 
 
+    public void LogtoStringLine(String filename)
+    {
+        File file = new File(filename);
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader(file));
+            String tempString = null;
+            while ((tempString = reader.readLine()) != null) {
+
+                OneJsontoRedis(getuserapp_id(tempString),getApplisttoString(tempString));
+            }
+
+            reader.close();
+
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+    }
+
 
     public void AllLogtoRedis(String logstring)
     {
@@ -117,8 +138,10 @@ public class JedisTest {
         JedisTest jedisTest=JedisTest.getInstance();
         jedisTest.init();
 
-        String content=jedisTest.LogtoString(filename);
-        jedisTest.AllLogtoRedis(content);
+//        String content=jedisTest.LogtoString(filename);
+//        jedisTest.AllLogtoRedis(content);
+
+        jedisTest.LogtoStringLine(filename);
 
     }
 
